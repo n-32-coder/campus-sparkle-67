@@ -47,11 +47,11 @@ function Landing() {
   const { data: stats } = useQuery({
     queryKey: ["landing-stats"],
     queryFn: async () => {
-      const [eventCount, regCount] = await Promise.all([
-        supabase.from("events").select("id", { count: "exact", head: true }),
-        supabase.from("registrations").select("id", { count: "exact", head: true }),
+      const [eventRows, regRows] = await Promise.all([
+        supabase.from("events").select("id"),
+        supabase.from("registrations").select("id"),
       ]);
-      return { events: eventCount.count ?? 0, registrations: regCount.count ?? 0 };
+      return { events: eventRows.data?.length ?? 0, registrations: regRows.data?.length ?? 0 };
     },
   });
 

@@ -30,11 +30,8 @@ export function SiteHeader() {
     queryKey: ["unread-count", user?.id],
     enabled: Boolean(user),
     queryFn: async () => {
-      const { count } = await supabase
-        .from("notifications")
-        .select("id", { count: "exact", head: true })
-        .eq("is_read", false);
-      return count ?? 0;
+      const { data } = await supabase.from("notifications").select("id").eq("is_read", false);
+      return data?.length ?? 0;
     },
   });
 
