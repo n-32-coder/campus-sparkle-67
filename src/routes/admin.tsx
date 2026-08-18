@@ -345,7 +345,7 @@ function AdminPage() {
             <DialogTitle>{editing ? "Edit event" : "Create event"}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <FormField label="Title" name="title" defaultValue={editing?.title} />
+            <FormField label="Title" name="title" defaultValue={editing?.title ?? ""} />
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
@@ -387,7 +387,7 @@ function AdminPage() {
                 editing ? toLocalInput(editing.event_date) : toLocalInput(new Date().toISOString())
               }
             />
-            <FormField label="Venue" name="venue" defaultValue={editing?.venue} />
+            <FormField label="Venue" name="venue" defaultValue={editing?.venue ?? ""} />
             <FormField
               label="Organizer"
               name="organizer"
@@ -421,7 +421,7 @@ function FormField({
   label: string;
   name: string;
   type?: string;
-  defaultValue?: string;
+  defaultValue?: string | undefined;
   required?: boolean;
 }) {
   return (
